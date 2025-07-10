@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fresher Job Detector Settings</title>
+  <link rel="stylesheet" href="options.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="options-container">
+    <header>
+      <h1>Settings</h1>
+      <p class="subtitle">Customize how fresher jobs are detected</p>
+    </header>
+    <main>
+      <div class="settings-card">
+        <label for="keywords">Keywords (comma separated):
+          <input id="keywords" type="text" placeholder="fresher, entry level, graduate, 0-1 years">
+        </label>
+        <label for="exp-threshold">Experience Threshold (years):
+          <input id="exp-threshold" type="number" min="0" max="5" placeholder="1">
+        </label>
+        <label for="model-select">AI Model:
+          <select id="model-select">
+            <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile (Groq)</option>
+            <option value="local">Local Only (No AI)</option>
+          </select>
+        </label>
+        <button id="save-btn" class="primary-btn">Save</button>
+        <span id="save-msg" class="save-msg"></span>
+      </div>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html> 
