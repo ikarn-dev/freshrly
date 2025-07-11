@@ -152,7 +152,6 @@ async function classifyJobWithGroq(description, model, setFallbackUsed) {
   const settings = await new Promise(resolve => getUserSettings(resolve));
   const apiKey = settings.apiKey;
   if (!apiKey) {
-    injectModelWarning('Groq API key not set. Please add your API key in Settings.');
     setFallbackUsed && setFallbackUsed(true, 'noapikey');
     return classifyJDHardcoded(description);
   }

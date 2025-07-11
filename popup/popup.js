@@ -272,6 +272,17 @@ function fetchJobsAndUpdateUI() {
   });
 }
 
+function showApiKeyWarning() {
+  const warning = document.getElementById('api-key-warning');
+  if (warning) {
+    warning.style.display = 'block';
+    setTimeout(() => {
+      warning.style.display = 'none';
+    }, 3000);
+  }
+}
+// To use: call showApiKeyWarning() when API key is missing.
+
 // Add loader CSS
 const style = document.createElement('style');
 style.innerHTML = `
@@ -369,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { type: 'getJD' }, function(response) {
           if (chrome.runtime.lastError) {
-            showFeedback('Please open a LinkedIn job page to use this feature.', 'error');
+            showFeedback('Please open a LinkedIn job page to use this feature.<br>If you are already on LinkedIn, try refreshing the page.', 'error');
             scanBtn.textContent = originalText;
             scanBtn.disabled = false;
             return;
@@ -385,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           chrome.tabs.sendMessage(tabs[0].id, { type: 'classifyJDWithAI', jd: response.jd }, function(aiResp) {
             if (chrome.runtime.lastError) {
-              showFeedback('Please open a LinkedIn job page to use this feature.', 'error');
+              showFeedback('Please open a LinkedIn job page to use this feature.<br>If you are already on LinkedIn, try refreshing the page.', 'error');
               scanBtn.textContent = originalText;
               scanBtn.disabled = false;
               return;
