@@ -236,7 +236,15 @@ function classifyJDHardcoded(description) {
   // Expanded and prioritized senior/experienced detection
   const seniorLike = /(seasoned|experienced professional|complete knowledge|senior|wide range of issues|expert|specialist|advanced|proven track record|leadership|extensive experience|mid-level|midlevel|principal|manager|lead|consultant|advisor|mentor|proficiency|proficient|authority|guru|veteran|master|accomplished|distinguished|highly skilled|well-versed|adept|in-depth knowledge|comprehensive knowledge|subject matter expert|SME)/i;
   const fresherLike = /(fresher|entry level|graduate|trainee|student|beginner|new grad|recent graduate|early career|no experience|starter|rookie)/i;
-  const zeroExp = /0\s*years?|no experience/i;
+  const zeroExp = /0\s*years?|no experience|0-1\s*years?/i;
+  
+  // Check for entry-level positions in title (strong indicator)
+  const title = document.querySelector('h1')?.innerText || '';
+  const titleLower = title.toLowerCase();
+  if (titleLower.includes('entry level') || titleLower.includes('graduate')) {
+    return 'Fresher';
+  }
+  
   if (seniorLike.test(description) && !fresherLike.test(description) && !zeroExp.test(description)) {
     return 'Other';
   }
@@ -244,7 +252,7 @@ function classifyJDHardcoded(description) {
   if (descLower.includes('intern') || descLower.includes('internship') || descLower.includes('apprentice')) {
     return 'Intern';
   }
-  // Updated experience regex
+  // Updated experience regex - improved to catch "0-1 years"
   const expPattern = /(\d+)\s*(?:\+)?\s*(?:-|to)?\s*(\d*)\s*(?:\+)?\s*(years?|yrs?)/ig;
   let expMatch;
   let minExp = null;
@@ -308,11 +316,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const knownJobTypes = [
       'full-time', 'internship', 'part-time', 'contract', 'temporary', 'apprenticeship', 'volunteer', 'freelance', 'seasonal', 'co-op'
     ];
+    
+    // Helper function to clean LinkedIn preference text
+    function cleanPreferenceText(text) {
+      if (!text) return '';
+      // Remove "Matches your job preferences" and everything after it
+      return text.replace(/Matches your job preferences.*$/i, '').trim();
+    }
+    
     if (prefButtons.length > 1) {
-      location = prefButtons[0]?.innerText?.trim() || '';
-      jobType = prefButtons[1]?.innerText?.trim() || '';
+      location = cleanPreferenceText(prefButtons[0]?.innerText) || '';
+      jobType = cleanPreferenceText(prefButtons[1]?.innerText) || '';
     } else if (prefButtons.length === 1) {
-      const btnText = prefButtons[0].innerText.trim();
+      const btnText = cleanPreferenceText(prefButtons[0].innerText);
       if (knownJobTypes.some(type => btnText.toLowerCase().includes(type))) {
         jobType = btnText;
       } else {
@@ -322,7 +338,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // Fallback: try previous selectors or leave blank
       const locElem = document.querySelector('.job-details-jobs-unified-top-card__primary-description-container .t-black--light.mt2 .tvm__text--low-emphasis');
       if (locElem) {
-        location = locElem.innerText.trim();
+        location = cleanPreferenceText(locElem.innerText);
       }
     }
     sendResponse({ title, company, jobType, location });
