@@ -2,8 +2,32 @@
 
 A Chrome extension that helps fresh graduates and junior professionals efficiently find and manage entry-level job opportunities on LinkedIn, powered by AI.
 
+DEMO
 ---
+1. Job Classification on LinkedIn
+<img width="1920" height="1080" alt="Screenshot (72)" src="https://github.com/user-attachments/assets/76d262ee-176a-4953-8ff0-28b4cc5285b6" />
 
+2. Extension Home View
+<img width="470" height="742" alt="Screenshot 2025-07-11 122132" src="https://github.com/user-attachments/assets/10819f30-09bd-4955-82c1-8499c392cc88" />
+
+3. Adding a Job Manually
+<img width="453" height="727" alt="Screenshot 2025-07-11 123235" src="https://github.com/user-attachments/assets/8487fa47-f4ff-4b0f-82a7-fcdadba1e490" />
+
+4. Saved Jobs View
+<img width="460" height="434" alt="Screenshot 2025-07-11 123249" src="https://github.com/user-attachments/assets/d0dd6c97-4d54-41da-856a-d5afa501af61" />
+
+5. Recent Activity Feed
+<img width="466" height="741" alt="Screenshot 2025-07-11 123309" src="https://github.com/user-attachments/assets/0381cd37-a2a3-4a6a-a1fc-94d0243da634" />
+
+ 6. Settings - AI Model Selection
+<img width="412" height="528" alt="Screenshot 2025-07-11 123331" src="https://github.com/user-attachments/assets/bae579a2-2447-4ed4-9b92-0ffc6c205c2b" />
+<img width="430" height="539" alt="Screenshot 2025-07-11 123341" src="https://github.com/user-attachments/assets/7a0bf27b-479d-4e28-8cff-151f664e112d" />
+
+## ✅ Ready to Use
+
+- Load the extension via `chrome://extensions > Load Unpacked`
+- Open any LinkedIn job post
+- Use FreshrLy to detect, classify, save, and export fresher jobs!
 ## Features
 
 ### 1. **Automated LinkedIn Job Analysis**
